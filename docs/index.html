@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropGuru - AI Driven Crop Recommendation</title>
+    
+    <link rel="icon" type="image/svg+xml" href="static/images/cropguru_logo5.svg">
+
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/chatbot.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="container">
+            <!-- === NAVBAR LOGO CHANGE HERE === -->
+            <a href="#" class="logo">
+                <img src="static/images/cropguru_logo5.svg" alt="CropGuru Logo" class="logo-img">
+                <span style="font-size: 2rem;">CropGuru</span>
+            </a>
+            <div class="nav-right-cluster">
+                <ul class="nav-links">
+                    <li><a href="#surveys">Surveys</a></li>
+                    <li><a href="#about-us">About Us</a></li>
+                    <li><a href="#contact-us">Contact Us</a></li>
+                </ul>
+                <button id="dark-mode-toggle" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.64 5.64c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.64 5.64zm12.72 12.72c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41l-1.06-1.06zM5.64 18.36l-1.06-1.06c-.39-.39-.39-1.02 0-1.41s1.02-.39 1.41 0l1.06 1.06c.39.39.39 1.02 0 1.41s-1.02.39-1.41 0zm12.72-12.72l-1.06-1.06c-.39-.39-.39-1.02 0-1.41s1.02-.39 1.41 0l1.06 1.06c.39.39.39 1.02 0 1.41s-1.02.39-1.41 0z"/></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M12.87 2.09c-.38-.03-.76 0-1.13.09C7.4 2.8 4.22 6.33 4.02 10.79c-.22 4.93 3.53 9.22 8.46 9.22.2 0 .4-.01.59-.02 4.13-.23 7.39-3.72 7.39-7.88 0-3.69-2.55-6.84-6-7.87zm.79 16.02c-3.2-.01-5.78-2.6-5.78-5.79 0-2.31 1.34-4.33 3.29-5.26.1-.05.22-.04.31.02.1.06.16.16.16.28v10.4c0 .12-.06.23-.16.28-.2.1-.42.17-.62.17z"/></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h2>Get an Instant Crop Recommendation</h2>
+                <p>Enter your soil and weather data to find the perfect crop for your land.</p>
+            </div>
+        </section>
+
+                <section class="prediction-form">
+            <h2>Recommendation Engine</h2>
+            <form id="recommendation-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="n">Nitrogen (N) (kg/ha)</label>
+                        <input type="number" id="n" name="n" required placeholder="e.g., 90">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="p">Phosphorus (P) (kg/ha)</label>
+                        <input type="number" id="p" name="p" required placeholder="e.g., 42">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="k">Potassium (K) (kg/ha)</label>
+                        <input type="number" id="k" name="k" required placeholder="e.g., 43">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ph">Soil pH Level</label>
+                        <input type="number" id="ph" name="ph" step="0.1" required placeholder="e.g., 6.5">
+                        <div class="error-message"></div>
+                    </div>
+                    
+                    <!-- === WEATHER FIELDS WITH LOCATION BUTTON === -->
+                    <div class="form-group">
+                        <label for="temperature">Temperature (°C)</label>
+                        <input type="number" id="temperature" name="temperature" step="0.1" required placeholder="e.g., 20.8">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="humidity">Relative Humidity (%)</label>
+                        <input type="number" id="humidity" name="humidity" step="0.1" required placeholder="e.g., 82.0">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="rainfall">Rainfall (mm)</label>
+                        <input type="number" id="rainfall" name="rainfall" step="0.1" required placeholder="e.g., 202.9">
+                        <div class="error-message"></div>
+                    </div>
+
+                    <!-- === NEW: LOCATION FETCH BUTTON === -->
+                    <div class="form-group full-width">
+                        <button type="button" id="fetch-location-btn" class="location-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18px" height="18px"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+                            Use My Location to get Weather Data
+                        </button>
+                        <div id="location-status" class="location-status-message"></div>
+                    </div>
+                </div>
+                <button type="submit">Get Recommendation</button>
+            </form>
+
+            <!-- === NEW: ENHANCED PREDICTION RESULT AREA === -->
+            <div id="prediction-result" class="prediction-result-container hidden">
+                <h3>Your Recommended Crop:</h3>
+                <div id="crop-result-card" class="crop-card">
+                    <div id="crop-name-placeholder" class="placeholder">Analyzing...</div>
+                    <h2 id="crop-name" class="hidden"></h2>
+                    <p id="suggestion-text"></p>
+                    <button id="view-crop-details-btn" class="details-btn hidden">View Cultivation Guide</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- === THIS IS THE RESTORED CONTENT === -->
+        <section id="surveys" class="surveys-section">
+            <div class="container">
+                <h2 class="section-title">The Challenges We Face</h2>
+                <div class="survey-item">
+                    <div class="survey-image-container"><img src="https://joint-research-centre.ec.europa.eu/sites/default/files/styles/oe_theme_medium_no_crop/public/2024-04/poco_bw_AdobeStock_531073398.jpeg?itok=K6fYNl6B" alt="Global Food Supply Chain" class="survey-image"></div>
+                    <div class="survey-content">
+                        <h3>Global Food Scarcity</h3>
+                        <ul>
+                            <li>The UN projects the world will need to produce 60% more food by 2050 to feed a population of 9.7 billion.</li>
+                            <li>Extreme weather events, intensified by climate change, are making crop yields more unpredictable than ever.</li>
+                            <li>Up to one-third of all food produced globally is lost or wasted before it ever reaches the consumer.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="survey-item survey-item-reverse">
+                    <div class="survey-image-container"><img src="https://mediaindia.eu/wp-content/uploads/2020/04/farmers-1.jpg" alt="Farmer on a Tractor" class="survey-image"></div>
+                    <div class="survey-content">
+                        <h3>Hardships in Farming</h3>
+                        <ul>
+                            <li>Over 80% of farmers in India are smallholders, making them highly vulnerable to crop failure and debt.</li>
+                            <li>Unpredictable monsoon patterns directly impact the livelihoods of millions dependent on rain-fed agriculture.</li>
+                            <li>Lack of access to modern data and technology creates a significant barrier to improving productivity and income.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-us" class="about-us-section">
+            <div class="container">
+                <h2 class="section-title">Our Mission for a Greener Future</h2>
+                <img src="https://students.1fbusa.com/hubfs/25%20Ways%20to%20Volunteer%20in%20Your%20Community.jpg" alt="Hopeful Farmer in a Thriving Field" class="about-image">
+                <p class="about-para">We believe that data is the most powerful tool in modern agriculture. Our noble goal is to bridge the technology gap for farmers everywhere, starting in India. By providing free, accessible, and accurate crop recommendations, we empower farmers to make informed decisions, increase their yield, conserve resources, and secure their financial future. CropGuru is more than an app; it's a step towards a sustainable and prosperous agricultural ecosystem for all.</p>
+                <div class="data-collection-section">
+                    <div class="data-content">
+                        <h3>Powered by Pan-India Data</h3>
+                        <p>Our model's accuracy comes from a comprehensive dataset collected from various agricultural institutes and soil testing centers across India. This diverse data ensures our recommendations are relevant to a wide range of local conditions.</p>
+                        <div class="stats-visual">
+                            <div class="stat-item"><span class="stat-label">Northern Plains</span><div class="stat-bar-container"><span class="stat-bar" style="width: 80%;"></span></div></div>
+                            <div class="stat-item"><span class="stat-label">Deccan Plateau</span><div class="stat-bar-container"><span class="stat-bar" style="width: 90%;"></span></div></div>
+                            <div class="stat-item"><span class="stat-label">Coastal Regions</span><div class="stat-bar-container"><span class="stat-bar" style="width: 75%;"></span></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="nutrition-section">
+            <div class="container">
+                <h2 class="section-title">Understanding Key Growth Factors</h2>
+                <div class="card-container">
+                    <div class="card"><h3>Nitrogen (N)</h3><p>Essential for leaf and stem growth (vegetative growth). It is a core component of chlorophyll, giving plants their green color.</p></div>
+                    <div class="card"><h3>Phosphorus (P)</h3><p>Crucial for strong root development, seed germination, and the transfer of energy within the plant. Aids in flowering and fruiting.</p></div>
+                    <div class="card"><h3>Potassium (K)</h3><p>Improves overall plant vigor, disease resistance, and water regulation. Essential for producing high-quality fruit and grain.</p></div>
+                    <div class="card"><h3>Soil pH</h3><p>Affects the availability of all other nutrients. Most crops thrive in a neutral range (6.0 to 7.5) where nutrients are most accessible.</p></div>
+                    <div class="card"><h3>Temperature</h3><p>Dictates the rate of plant growth and metabolic processes. Each crop has an optimal temperature range for germination and growth.</p></div>
+                    <div class="card"><h3>Soil Type</h3><p>Determines water retention and nutrient-holding capacity. Different crops are adapted to different soil structures, from sandy to clay.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- === END OF RESTORED CONTENT === -->
+    </main>
+
+        <footer id="contact-us" class="main-footer-section">
+        <div class="container footer-content">
+            
+            <div class="footer-left">
+                <!-- Item 1: The Logo Image -->
+                <img src="static/images/cropguru_logo5.svg" alt="CropGuru Logo" class="footer-logo-img">
+                
+                <!-- Item 2: A new container for the text stack -->
+                <div class="footer-info-stack">
+                    <h3 class="footer-title">CropGuru</h3>
+                    <div class="footer-contact-info">
+                        <span class="footer-contact-label">Contact Developer:</span>
+                        <a href="mailto:sonusharma15772@gmail.com" class="footer-email">sonusharma15772@gmail.com</a>
+                    </div>
+                    <div class="social-icons">
+                        <a href="https://github.com/Sonu0Sharma" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                        <a href="https://www.linkedin.com/in/sonu-sharma1000/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="https://www.kaggle.com/work/collections/19016604" target="_blank" rel="noopener noreferrer" aria-label="Kaggle" title="Kaggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.539c-.234 0-.351-.117-.351-.352V.352c0-.234.117-.352.351-.352h2.397c.234 0 .351.118.351.352v14.479l6.326-6.26c.14-.14.293-.211.457-.211h3.35c.164 0 .258.058.281.176.023.093-.012.187-.105.281l-6.853 6.647 7.378 8.163c.094.094.129.188.105.282z"/></svg></a>
+                        <a href="https://medium.com/@sonusharmaofficial01mail" target="_blank" rel="noopener noreferrer" aria-label="Medium" title="Medium"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg></a>
+                        <a href="https://x.com/Sonu001Sharma" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" title="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="https://x.com/Sonu001Sharma" target="_blank" rel="noopener noreferrer" aria-label="Twitter (Classic)" title="Twitter (Classic)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.216 3.793 4.649-.69.188-1.423.237-2.16.084.609 1.882 2.373 3.256 4.478 3.295-1.616 1.267-3.636 2.02-5.833 2.02-.379 0-.75-.022-1.114-.065 2.089 1.347 4.58 2.123 7.24 2.123 8.693 0 13.456-7.22 13.456-13.456 0-.204-.005-.408-.014-.613.924-.668 1.719-1.498 2.353-2.446z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-right">
+                <a href="#" class="back-to-top">Back to Top &uarr;</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================================================================= -->
+<!-- ========= ALL BHOOMI AI CHATBOT HTML COMPONENTS ========= -->
+<!-- ================================================================= -->
+
+<!-- 1. The Floating Chatbot Button -->
+<button id="bhoomi-button" aria-label="Open Bhoomi AI Chat"></button>
+
+<!-- 2. The Main Chat Window -->
+<div id="chat-window" class="hidden">
+    <div class="chat-header">
+        <h3>Bhoomi AI Assistant</h3>
+        <button id="close-chat-btn">&times;</button>
+    </div>
+    <div id="chat-messages">
+        <div class="bot-message">Hello! I'm Bhoomi AI. Please select an option below to learn more.</div>
+    </div>
+    <div id="chat-options">
+        <!-- Option buttons are dynamically added here by JavaScript -->
+    </div>
+</div>
+
+<!-- 3. The Welcome Pop-up (Modal) -->
+<div id="welcome-modal" class="hidden">
+    <div class="modal-content">
+        <h3>Welcome to CropGuru!</h3>
+        <p>Have a question? Ask our assistant, <strong>Bhoomi AI</strong>, by clicking the chat icon.</p>
+        <button id="close-modal-btn">Got it!</button>
+    </div>
+</div>
+
+<!-- 4. The Main Response Pop-up Card (UPDATED WITH PRINT BUTTON) -->
+<div id="response-popup" class="hidden">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h3 id="popup-title"></h3>
+            <button id="print-response-btn" aria-label="Print Response">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                <span>Print</span>
+            </button>
+        </div>
+        <div id="popup-text"></div> <!-- Use a div to render HTML content -->
+        <button id="close-popup-btn">Close</button>
+    </div>
+</div>
+
+<!-- 5. The Dark Overlay (used by both the welcome modal and the response popup) -->
+<div id="modal-overlay" class="hidden"></div>
+
+
+<!-- 6. NEW: HIDDEN CONTAINER FOR CROP DATA -->
+<!-- This entire div is hidden but its content is used by the chatbot JavaScript -->
+<div id="crop-data-source" style="display: none;">
+    <style>
+      .meta{display:flex; flex-wrap:wrap; gap:10px; color:#555; font-size:.92rem; margin-bottom: 1rem;}
+      .pill{border:1px solid #ccc; padding:2px 8px; border-radius:999px}
+      h3{margin-bottom:6px; margin-top: 1.5rem; color: var(--primary-color);}
+      ul{margin-top:6px; padding-left: 20px;}
+    </style>
+    <!-- 1. RICE -->
+    <section id="rice">
+      <h2> Rice (Oryza sativa)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 20–35°C</span>
+        <span class="pill">Soil pH: 5.5–6.5</span>
+        <span class="pill">Water: High / standing</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Tropical/subtropical; thrives with abundant water or assured irrigation.</li>
+        <li>Clayey to loamy soils with high water-holding capacity; pH 5.5–6.5 ideal.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Puddling (flood + till) to reduce percolation and suppress weeds; laser levelling improves uniformity.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Use region-specific high-yielding/resistant varieties. Transplant 20–25 day-old seedlings (short-duration).</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N: 100–150 kg/ha split: basal, tillering, panicle initiation. P: 40–60; K: 40–60 kg/ha.</li>
+        <li>Apply ZnSO<sub>4</sub> ~25 kg/ha where zinc deficiency is common.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Maintain 2–5 cm standing water till flowering; drain before harvest.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: stem borer, brown planthopper, leaf folder. Diseases: blast, sheath blight, bacterial blight.</li>
+        <li>Adopt IPM: resistant varieties, proper spacing, timely sprays, field sanitation.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at 20–25% grain moisture; expected yield 4–6 t/ha (up to 8–10 t/ha with improved practices).</li>
+      </ul>
+    </section>
+
+    <!-- 2. MAIZE -->
+    <section id="maize">
+      <h2> Maize (Zea mays)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 18–27°C</span>
+        <span class="pill">Soil pH: 5.5–7.5</span>
+        <span class="pill">Water: 500–800 mm</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Warm-season crop; well-drained loams preferred.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Fine tilth; ridge–furrow in heavy soils for drainage.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Hybrids; spacing rows 60–75 cm, plants 20–25 cm.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N: 120–180 kg/ha in 3–4 splits (basal, knee-high, tasseling, grain fill). P: 60–80; K: 40–60 kg/ha.</li>
+        <li>Zn/Boron in deficient soils improves cob filling.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Critical: knee-high, tasseling, grain filling. Avoid waterlogging.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: fall armyworm, stem borer; Diseases: downy mildew, leaf blight.</li>
+        <li>Early weed control (first 30 days) crucial.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at 20–25% kernel moisture; dry to 12–14% for storage. Yield 5–7 t/ha (up to 10 t/ha).</li>
+      </ul>
+    </section>
+
+    <!-- 3. CHICKPEA -->
+    <section id="chickpea">
+      <h2> Chickpea (Cicer arietinum)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 10–25°C</span>
+        <span class="pill">Soil pH: 6.0–7.5</span>
+        <span class="pill">Rainfed friendly</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Cool-season pulse; avoid waterlogging; sandy loam to clay loam.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>One deep plough + harrowing; raised beds in heavy soils.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Wilt-resistant varieties; rows 30–45 cm, depth 5–8 cm.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Starter N 20–25 kg/ha; P 40–60 kg/ha; K only if deficient. Use Rhizobium inoculation.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Mostly rainfed; 1–2 irrigations at flowering & pod fill if possible.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: pod borer; Diseases: Fusarium wilt, Ascochyta blight. Rotate with cereals.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest when 90% pods brown; 1.5–2 t/ha rainfed; 2.5–3.5 t/ha irrigated.</li>
+      </ul>
+    </section>
+
+    <!-- 4. KIDNEY BEANS -->
+    <section id="kidneybeans">
+      <h2> Kidney Beans (Phaseolus vulgaris)</h2>
+      <div class="meta">
+        <span class="pill">Temp: Mild</span>
+        <span class="pill">Soil pH: 6.0–7.0</span>
+        <span class="pill">Drainage critical</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Temperate/subtropical; avoid frost/heat extremes; loamy, well-drained soils.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Fine, weed-free seedbed; raised beds improve drainage.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Spacing rows 30–45 cm; plants 8–10 cm.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Starter N 20–25 kg/ha; P 40–60; K ~40 kg/ha if deficient. Avoid excess N (delays flowering).</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Critical at flowering & pod fill; avoid waterlogging.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: aphids, bean fly; Diseases: anthracnose, rust, root rots. Seed treatment helps.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest dry pods when mature; 1.5–2.5 t/ha dry beans.</li>
+      </ul>
+    </section>
+
+    <!-- 5. PIGEON PEAS -->
+    <section id="pigeonpeas">
+      <h2> Pigeon Peas (Cajanus cajan)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 18–30°C</span>
+        <span class="pill">Soil pH: 5.0–8.0</span>
+        <span class="pill">Drought tolerant</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Semi-arid suited; well-drained sandy loams best.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Deep plough + harrow; ensure drainage.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Sow early/medium/late types as per rainfall; spacing 60–90 cm.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Starter N 20–25 kg/ha; P 50–60; K 30–40 kg/ha if deficient; fixes N via Rhizobium.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Mostly rainfed; one irrigation at pod fill boosts yield.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: pod borer; Diseases: wilt, sterility mosaic. Intercrop with cereals; use resistant varieties.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at ~80% pod maturity; 1–1.5 t/ha rainfed; 2–2.5 t/ha irrigated.</li>
+      </ul>
+    </section>
+
+    <!-- 6. MOTH BEAN -->
+    <section id="mothbeans">
+      <h2> Moth Bean (Vigna aconitifolia)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 25–35°C</span>
+        <span class="pill">Soil pH: 6.0–7.5</span>
+        <span class="pill">Arid adapted</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Excellent drought tolerance; sandy/sandy loam soils; performs on low fertility.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Minimal tillage; one deep plough + 1–2 harrowings.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Spacing 30–45 cm × 10–15 cm; depth 3–4 cm.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Starter N 15–20 kg/ha; P 30–40 kg/ha; K rarely needed unless deficient.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Usually rainfed; if irrigated, water at flowering & pod fill only.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: pod borer, aphids; Diseases: YMV, powdery mildew. Use resistant varieties; seed treatment.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest when pods brown; 0.5–1.0 t/ha rainfed; up to 1.5 t/ha irrigated.</li>
+      </ul>
+    </section>
+
+    <!-- 7. MUNG BEAN -->
+    <section id="mungbean">
+      <h2> Mung Bean (Vigna radiata)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 25–35°C</span>
+        <span class="pill">Soil pH: 6.2–7.2</span>
+        <span class="pill">Short duration</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Tropical/subtropical; sensitive to waterlogging; 60–70 day maturity (variety dependent).</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Deep plough + harrow; clean, weed-free bed.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Row spacing 30–45 cm; plant spacing 10–15 cm; depth 3–5 cm.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Starter N 15–20 kg/ha; P 40–50 kg/ha; K rarely required. Rhizobium inoculation recommended.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Kharif rainfed; summer crop needs irrigation every 7–10 days; critical at flowering & pod fill.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: aphids, whitefly, pod borer; Diseases: YMV, powdery mildew, Cercospora.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Pick at ~80% pod maturity (multiple pickings); 0.8–1.2 t/ha rainfed; up to 1.5 t/ha irrigated.</li>
+      </ul>
+    </section>
+
+    <!-- 8. BLACK GRAM -->
+    <section id="blackgram">
+      <h2> Black Gram (Vigna mungo)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 25–30°C</span>
+        <span class="pill">Soil pH: 6.0–7.5</span>
+        <span class="pill">Short duration</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Warm, humid conditions; loamy soils with good drainage.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>One plough + 2–3 harrowings to fine tilth.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Row spacing 30–45 cm; plant 10–15 cm apart; depth 3–5 cm.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Starter N 15–20; P 40–50 kg/ha; Zn 5–10 kg/ha if deficient. Rhizobium inoculation.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Rainfed in monsoon; irrigate at flowering & pod fill in summer; avoid excess water.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: pod borer, aphids, whitefly; Diseases: YMV, powdery mildew, Cercospora.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest when pods blacken; 1.0–1.3 t/ha rainfed; up to 1.5 t/ha irrigated.</li>
+      </ul>
+    </section>
+
+    <!-- 9. LENTIL -->
+    <section id="lentil">
+      <h2> Lentil (Lens culinaris)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 15–25°C</span>
+        <span class="pill">Soil pH: 6.0–7.0</span>
+        <span class="pill">Cool-season</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Cool, dry winter crop; avoid waterlogged fields.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Deep plough + harrow; conserve soil moisture.</li>
+      </ul>
+      <h3>Seed & Sowing</h3>
+      <ul>
+        <li>Rows 20–30 cm; depth 3–4 cm; disease-resistant varieties.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Starter N 20–25; P 40–50 kg/ha; K only if deficient; Rhizobium inoculation.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Mostly rainfed; if possible irrigate at flowering & pod fill.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: cutworms, aphids; Diseases: rust, wilt, root rot.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at 90% pod maturity; 0.8–1.2 t/ha rainfed; ~1.5 t/ha irrigated.</li>
+      </ul>
+    </section>
+
+    <!-- 10. POMEGRANATE -->
+    <section id="pomegranate">
+      <h2> Pomegranate (Punica granatum)</h2>
+      <div class="meta">
+        <span class="pill">Temp: Hot semi-arid</span>
+        <span class="pill">Soil pH: 5.5–7.5</span>
+        <span class="pill">Drip ideal</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Hot, semi-arid to subtropical; well-drained loams.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Deep plough and level; add 10–20 t/ha FYM pre-plant.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 4–5 m; plant in monsoon (Jul–Aug) or spring (Feb–Mar).</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Young: N 250–300 g, P 125–150 g, K 250–300 g/plant/yr; Mature: ~2×. Include Zn & B as needed.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Drip preferred; maintain moisture but avoid waterlogging. Critical at flowering, fruit set & development.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: fruit borer, aphids, mealybugs; Diseases: bacterial blight, fruit rot. Prune for airflow.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest 5–7 months after flowering at full color; 10–12 t/ha typical.</li>
+      </ul>
+    </section>
+
+    <!-- 11. BANANA -->
+    <section id="banana">
+      <h2> Banana (Musa spp.)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 25–35°C</span>
+        <span class="pill">Soil pH: 6.0–7.5</span>
+        <span class="pill">High humidity</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Tropical; deep loams rich in organic matter; no frost or waterlogging.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Pits 60×60×60 cm with compost mix; raised beds in heavy soils.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 1.8×1.5 m (dwarf) or 2×2 m (tall). Healthy suckers/tissue culture plants.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 200–400 g, P 50–60 g, K 300–400 g per plant/year in 4–6 splits + 10–15 kg FYM.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Regular irrigation: 7–8 days (winter), 4–5 days (summer); drip ideal.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: weevil, aphids, nematodes; Diseases: Panama wilt, Sigatoka, bunchy top.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest 11–12 months after planting; 40–50 t/ha common.</li>
+      </ul>
+    </section>
+
+    <!-- 12. MANGO -->
+    <section id="mango">
+      <h2> Mango (Mangifera indica)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 24–30°C</span>
+        <span class="pill">Soil pH: 5.5–7.5</span>
+        <span class="pill">Dry flowering</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Subtropical/tropical; dry weather at flowering; deep well-drained loams.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Pits 1×1×1 m with 20–25 kg FYM.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 9–12 m; plant in monsoon or spring.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Young: 100 g N, 50 g P, 100 g K; Mature: 500 g N, 250 g P, 500 g K per tree/year in two splits.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Weekly for young trees; irrigate at fruit set & development; avoid excess at flowering.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: hoppers, mealybugs, fruit fly; Diseases: powdery mildew, anthracnose.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at full maturity (90–120 days after set); 8–10 t/ha (traditional) to 15–20 t/ha (high-density).</li>
+      </ul>
+    </section>
+
+    <!-- 13. GRAPES -->
+    <section id="grapes">
+      <h2> Grapes (Vitis vinifera)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 15–35°C</span>
+        <span class="pill">Soil pH: 6.5–7.5</span>
+        <span class="pill">Low humidity at ripening</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Warm, dry; deep, well-drained sandy loams preferred.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Deep plough; 20–25 t/ha FYM; trellis/bower systems mandatory.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Rows 2–3 m; vines 1.5–2 m apart; train & prune for canopy and airflow.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 400–500 g, P 200–250 g, K 400–500 g per vine/year; add Mg & Zn as needed.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Every 7–10 days in summer; reduce near ripening for sweetness.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: mealybugs, thrips; Diseases: downy & powdery mildew, anthracnose.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at 18–22° Brix; 20–25 t/ha typical.</li>
+      </ul>
+    </section>
+
+    <!-- 14. WATERMELON -->
+    <section id="watermelon">
+      <h2> Watermelon (Citrullus lanatus)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 22–35°C</span>
+        <span class="pill">Soil pH: 6.0–7.5</span>
+        <span class="pill">Sandy loam</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Warm with long frost-free season; well-drained sandy loams.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Ridges/raised beds; add 15–20 t/ha FYM.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Rows 3–4 m; plants 0.5–1 m; Feb–Mar (summer), Nov–Dec (spring).</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 80–100, P 40–50, K 40–50 kg/ha; split doses for quality and firmness.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Every 5–7 days early; reduce near harvest to improve sweetness.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: aphids, fruit flies, red pumpkin beetle; Diseases: Fusarium wilt, powdery mildew.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at tendril-dry & ground-spot yellow; 20–30 t/ha common.</li>
+      </ul>
+    </section>
+
+    <!-- 15. MUSKMELON -->
+    <section id="muskmelon">
+      <h2> Muskmelon (Cucumis melo)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 25–30°C</span>
+        <span class="pill">Soil pH: 6.0–7.5</span>
+        <span class="pill">Warm & dry</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Warm, low humidity at ripening; sandy loams preferred.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Raised beds; 15–20 t/ha FYM.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Rows 1.5–2 m; plants 0.5–0.75 m; Feb–Mar or Oct–Nov.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 60–80, P 40–50, K 40–50 kg/ha; half N + full P&K at sowing; rest N at vine growth.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Every 5–6 days initially; reduce near harvest.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: aphids, fruit flies, red pumpkin beetle; Diseases: powdery/downy mildew, gummy stem blight.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at netting & aroma stage; 15–20 t/ha typical.</li>
+      </ul>
+    </section>
+
+    <!-- 16. APPLE -->
+    <section id="apple">
+      <h2> Apple (Malus domestica)</h2>
+      <div class="meta">
+        <span class="pill">Chilling: 1000–1500 h</span>
+        <span class="pill">Soil pH: 6.0–7.0</span>
+        <span class="pill">Slope sites preferred</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Temperate with adequate chill; well-drained loams.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Pits 1×1×1 m with 40–50 kg FYM; choose gentle slopes to avoid frost pockets.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 4×4 to 6×6 m depending on rootstock; plant in dormancy (Dec–Feb).</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Young: N 70–150 g, P 35–70 g, K 70–150 g; Mature: 500–700 g N/tree; split pre-bloom/post-set/post-harvest.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>7–10 days in summer for young orchards; irrigate during fruit development.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: codling moth, aphids; Diseases: scab, powdery mildew, fire blight.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Seeds brown & color developed; 8–12 t/ha traditional; 25–30 t/ha high-density systems.</li>
+      </ul>
+    </section>
+
+    <!-- 17. ORANGE -->
+    <section id="orange">
+      <h2> Orange (Citrus sinensis)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 12–35°C</span>
+        <span class="pill">Soil pH: 5.5–7.5</span>
+        <span class="pill">Well-drained soils</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Subtropical/tropical; sandy loams preferred.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Pits 60×60×60 cm with FYM & topsoil.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 6×6 m; plant in monsoon or spring.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>Yr1: 100 g N, 40 g P, 40 g K; Mature: 600–800 g N, 200–300 g P, 400–600 g K per tree/year + micronutrients (Zn, Fe).</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Every 7–10 days in summer; drip preferred.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: psylla, leaf miner, fruit fly; Diseases: canker, gummosis, tristeza.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at full color (10–12° Brix); 10–15 t/ha typical.</li>
+      </ul>
+    </section>
+
+    <!-- 18. PAPAYA -->
+    <section id="papaya">
+      <h2> Papaya (Carica papaya)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 22–33°C</span>
+        <span class="pill">Soil pH: 6.0–6.5</span>
+        <span class="pill">Frost sensitive</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Tropical; avoid waterlogging; well-drained loams.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Pits 60×60×60 cm with FYM & topsoil; good drainage essential.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 2×2 m; healthy seedlings; plant in monsoon or spring.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 250–300, P 150–200, K 250–300 g/plant/year in 4–5 splits + organics; micronutrients as needed.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Every 5–7 days; reduce near ripening to improve quality.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: aphids, fruit fly, mites; Diseases: PRSV (ringspot), powdery mildew, root rot.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest at yellowing skin; 40–60 t/ha/year typical.</li>
+      </ul>
+    </section>
+
+    <!-- 19. COCONUT -->
+    <section id="coconut">
+      <h2> Coconut (Cocos nucifera)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 27–32°C</span>
+        <span class="pill">Soil pH: 5.2–8.0</span>
+        <span class="pill">Humid tropics</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Humid tropics; rainfall &gt;1500 mm; sandy loams, coastal belts suitable.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Pits 1×1×1 m with 15–20 kg FYM; windbreaks recommended.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 7.5×7.5 m; plant at monsoon onset.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 500 g, P 320 g, K 1200 g per palm/year + organics; split applications.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Every 5–10 days in dry months; drip highly beneficial.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: rhinoceros beetle, red palm weevil, eriophyid mite; Diseases: bud rot, stem bleeding.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Harvest every 45–60 days; 80–100 nuts/palm/year typical.</li>
+      </ul>
+    </section>
+
+    <!-- 20. COTTON -->
+    <section id="cotton">
+      <h2> Cotton (Gossypium spp.)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 21–30°C</span>
+        <span class="pill">Soil pH: 6.0–8.0</span>
+        <span class="pill">Vertisols ideal</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Warm climate with 150–200 frost-free days; deep black soils preferred.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Deep plough + harrow; incorporate 15–20 t/ha FYM.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 75×30 cm (compact) or 90×45 cm (hybrids); sow Apr–May (irrigated) / Jun–Jul (rainfed).</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 80–100, P 40–50, K 40–50 kg/ha; half N + full P&K at sowing, rest N at flowering.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Every 6–8 days in summer; critical at flowering & boll formation.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: bollworms, aphids, whiteflies; Diseases: bacterial blight, wilt, leaf curl virus. Bt cotton helps with bollworms.</li>
+      </ul>
+      <h3>Harvest & Yield</h3>
+      <ul>
+        <li>Pick when bolls open fully; 15–25 q/ha lint in irrigated systems.</li>
+      </ul>
+    </section>
+
+    <!-- 21. JUTE -->
+    <section id="jute">
+      <h2> Jute (Corchorus spp.)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 24–37°C</span>
+        <span class="pill">Soil pH: 6.0–7.0</span>
+        <span class="pill">High rainfall</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Warm, humid with 1500–2000 mm rainfall; fertile alluvial soils.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>2–3 ploughings to fine tilth; incorporate 5–10 t/ha FYM; ensure drainage.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Sow Mar–Apr; seed rate 5–7 kg/ha (C. capsularis) or 7–8 kg/ha (C. olitorius); spacing 30×15 cm.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 40–60, P 20–30, K 40–50 kg/ha; half N + full P&K at sowing; rest N at 45 DAS.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Mostly rainfed; irrigate during dry spells; avoid waterlogging.</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: stem weevil, semilooper; Diseases: stem/soft rot, anthracnose; rotate crops and use resistant varieties.</li>
+      </ul>
+      <h3>Harvest, Retting & Yield</h3>
+      <ul>
+        <li>Harvest at early flowering (90–120 days) for best fiber; rett for 2–3 weeks; 20–30 q fiber/ha typical.</li>
+      </ul>
+    </section>
+
+    <!-- 22. COFFEE -->
+    <section id="coffee">
+      <h2> Coffee (Coffea spp.)</h2>
+      <div class="meta">
+        <span class="pill">Temp: 15–28°C</span>
+        <span class="pill">Soil pH: 6.0–6.5</span>
+        <span class="pill">Shade-grown</span>
+      </div>
+      <h3>Climate & Soil</h3>
+      <ul>
+        <li>Tropical highlands with 1500–2500 mm rain; humus-rich, well-drained loams; partial shade required.</li>
+      </ul>
+      <h3>Land Preparation</h3>
+      <ul>
+        <li>Maintain shade trees; pits 45×45×45 cm with composted soil.</li>
+      </ul>
+      <h3>Planting</h3>
+      <ul>
+        <li>Spacing 2×2 m (Arabica) or 2.5×2.5 m (Robusta); plant at monsoon onset.</li>
+      </ul>
+      <h3>Nutrient Management</h3>
+      <ul>
+        <li>N 120–140, P 60–80, K 120–140 kg/ha/year in 3–4 splits + organics; include Mg, Zn, B if deficient.</li>
+      </ul>
+      <h3>Irrigation</h3>
+      <ul>
+        <li>Supplement in dry months; key irrigations: blossom (pre-flowering) and backing (post-flowering).</li>
+      </ul>
+      <h3>Weeds, Pests & Diseases</h3>
+      <ul>
+        <li>Pests: coffee berry borer, mealybugs, stem borers; Diseases: leaf rust, berry disease, root rots. IPM essential.</li>
+      </ul>
+      <h3>Harvest, Processing & Yield</h3>
+      <ul>
+        <li>Hand-pick ripe red cherries; multiple pickings; process via wet (washed) or dry (natural) methods; Arabica 600–900 kg/ha, Robusta 900–1200 kg/ha clean coffee.</li>
+      </ul>
+    </section>
+</div>
+
+    <!-- Load the JS files at the end. Order is important! -->
+    <script src="static/js/chatbot_content.js"></script>
+    <script src="static/js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+Stage 1: Setting Up Your Project Environment (One-Time Only)
+
+cd Desktop/CropGuru
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+Stage 2: Training the Model (One-Time Only)
+
+cd ml_model/src
+python3 train.py
+cd ../..
+cd backend
+python3 app.py
+
+🚀 Your Website is Now Running! The terminal will show some text and will end with something like this:
+code
+Code
+* Serving Flask app 'app'
+ * Running on http://127.0.0.1:5000
+(Press CTRL+C to quit)
+
+# now when ever we will reopen :
+
+# 1. Go to your project folder
+cd Desktop/CropGuru
+
+# 2. Activate your environment
+source venv/bin/activate
+
+# 3. Go to the backend folder
+cd backend
+
+# 4. Run the app
+python3 app.py
+
+To end - in terminal : Control + C

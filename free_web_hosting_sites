@@ -1,0 +1,28 @@
+	InfinityFree: Advertises unlimited bandwidth and the ability to host unlimited domains and subdomains on a single free account, making it attractive for those with multiple projects. However, there are limitations to storage space (5 GB), and a daily hit limit (50,000 requests) may cause temporary suspensions if exceeded. They also don't provide email accounts in the free plan.
+
+	ProFreeHost: Also advertises unlimited bandwidth but comes with limitations like a cap on files and individual file size limits. It provides cPanel access, unlimited databases, and includes an email account.
+
+	50Webs: Claims to allow hosting for up to 10 domains with 500 MB storage and 5 GB bandwidth, along with 100 email accounts.
+
+	Render: Offers a free plan supporting static websites and applications, with generous build minutes and bandwidth. It's suitable for multiple static sites or applications and offers a good level of scalability.
+
+
+
+	Vercel: Offers a free plan with unlimited projects and APIs, providing 100 GB of bandwidth and supporting deployments from GitHub, GitLab, and Bitbucket personal accounts. It's ideal for frontend and serverless functions. Vercel emphasizes development, previewing, and quickly shipping applications with support for popular frontend frameworks like React, Next, and Gatsby.
+
+	Netlify: Provides a free plan with 100 GB of bandwidth per month and allows you to deploy serverless functions and connect to backend code. It's well-suited for Jamstack projects. It seamlessly integrates with Git repositories and offers continuous deployment.
+
+	Glitch: A platform for creating and hosting full-stack applications with an interactive coding environment in the browser. It allows hosting unlimited projects with 400 MB of disk space and 512 MB of RAM each. It supports Node.js and other languages that run on Linux.
+
+	Replit: A similar option to Glitch, enabling coding and hosting web applications, supporting any language that runs on Linux. Its free tier supports unlimited projects with 500 MB of disk space and 1 GB of RAM each.
+
+	Render: Offers a free tier for developers to host backend code and deploy applications. Render is a cloud-based solution that supports various languages like Node.js, Python, and Ruby, and even containerized deployments with Docker. It also includes features like automatic scaling and free SSL certificates.
+
+	Firebase: A platform by Google offering a suite of backend services including hosting, authentication, and a real-time database. Its Spark plan is free and provides generous resources like 360 MB of daily data transfer, 10 GB of storage, and free SSL certificates, among others.
+
+	Back4app: An open-source, backend-as-a-service platform that is completely free to host and manage backends built with technologies like Docker, Node.js, REST, and GraphQL. It offers automated scaling and customization.
+
+	AWS: Offers a free tier that allows access to single machines and various development services for a year. It's a powerful cloud computing platform with a diverse range of tools and strong security features.
+
+	Google Cloud: Provides a free tier with various tools and services, including Compute Engine, Cloud Functions, and Cloud Run. You'll get free credits when you sign up.
+Azure: Microsoft's cloud hosting service also supports various operating systems, frameworks, and databases. It offers free trials and includes free services that never expire. 

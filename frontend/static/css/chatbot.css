@@ -1,0 +1,234 @@
+/* ================================================= */
+/* ========= BHOOMI AI CHATBOT STYLES ============== */
+/* ================================================= */
+
+/* --- Animation Speed Control for Chatbot Popups --- */
+/* This is the key fix. It sets a fast transition for all popups. */
+#chat-window,
+#welcome-modal,
+#response-popup,
+#modal-overlay {
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* --- The rest of your file continues below --- */
+
+
+/* ================================================= */
+/* ========= BHOOMI AI CHATBOT STYLES ============== */
+/* ================================================= */
+
+/* --- The Floating Button --- */
+#bhoomi-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 70px;
+    height: 70px;
+    background-color: var(--surface-color);
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 1002;
+    background-image: url('../images/bhoomi-avatar.png');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
+}
+
+#bhoomi-button:hover {
+    transform: scale(1.1);
+}
+
+/* --- The Chat Window --- */
+#chat-window {
+    position: fixed;
+    bottom: 110px;
+    right: 25px;
+    width: 350px;
+    max-height: 500px;
+    background-color: var(--surface-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chat-header h3 { margin: 0; font-size: 1.1em; }
+#close-chat-btn { background: none; border: none; color: white; font-size: 2em; cursor: pointer; line-height: 0.5; }
+
+#chat-messages {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.bot-message, .user-message {
+    padding: 0.6rem 1rem;
+    border-radius: 15px;
+    max-width: 80%;
+    line-height: 1.4;
+}
+.bot-message { background-color: #e9e9eb; color: black; border-bottom-left-radius: 2px; align-self: flex-start; }
+body.dark-mode .bot-message { background-color: #4d4d4d; color: #e0e0e0; }
+.user-message { background-color: var(--secondary-color); color: white; border-bottom-right-radius: 2px; align-self: flex-end; }
+
+#chat-options {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    overflow-y: auto;   /* Add a scrollbar ONLY when the content is too tall */
+    max-height: 220px;  /* Set a maximum height for this area */
+    flex-shrink: 0;
+}
+.chat-option-btn { background-color: var(--surface-color); color: var(--primary-color); border: 1px solid var(--primary-color); width: 100%; padding: 0.8rem; border-radius: 5px; cursor: pointer; text-align: left; font-size: 0.95em; transition: background-color 0.2s ease, color 0.2s ease; }
+.chat-option-btn:hover { background-color: var(--primary-color); color: white; }
+.chat-option-btn.back-btn { color: var(--text-muted-color); border-color: var(--text-muted-color); margin-top: 0.5rem; }
+.chat-option-btn.back-btn:hover { background-color: var(--text-muted-color); color: white; }
+
+/* --- Welcome Pop-up --- */
+#welcome-modal {
+    position: fixed; /* This is the only position property needed. It anchors to the screen. */
+    bottom: 110px;
+    right: 25px;
+    background: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    z-index: 1002;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 280px;
+    /* The incorrect 'position: relative;' line has been REMOVED from here. */
+}
+
+/* --- The Triangle for the Welcome Pop-up --- */
+/* This works because the parent (#welcome-modal) has position: fixed */
+#welcome-modal::after {
+    content: '';
+    position: absolute;
+    top: 100%; 
+    right: 35px; /* Adjust this value to center the triangle */
+    border-width: 10px;
+    border-style: solid;
+    border-color: var(--surface-color) transparent transparent transparent;
+}
+
+
+#welcome-modal .modal-content h3 { margin-top: 0; }
+#close-modal-btn { display: block; width: 100%; margin: 1rem auto 0; padding: 0.8rem 1rem; background-color: var(--secondary-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; transition: background-color 0.3s ease; }
+#close-modal-btn:hover { background-color: var(--primary-color); }
+
+/* --- The Main Response Pop-up Card --- */
+#response-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: var(--surface-color);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 1002;
+    overflow: hidden;
+}
+.popup-content { padding: 2rem; }
+.popup-content h3 { font-family: 'Poppins', sans-serif; color: var(--primary-color); font-size: 1.8em; margin-top: 0; margin-bottom: 1rem; }
+.popup-content p { line-height: 1.7; margin-bottom: 2rem; }
+#close-popup-btn { display: block; width: 100%; padding: 0.8rem; background-color: var(--secondary-color); color: white; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; transition: background-color 0.3s ease; }
+#close-popup-btn:hover { background-color: var(--primary-color); }
+
+
+/* --- Dark Overlay & Highlight Effect --- */
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1001;
+}
+
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+#bhoomi-button.highlighted {
+    animation: pulse-glow 2s infinite;
+}
+
+
+/* ================================================= */
+/* ========= POPUP CARD HEADER & PRINT BTN ========= */
+/* ================================================= */
+
+.popup-content {
+    padding: 0; /* Remove padding from parent */
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem; /* Add padding here */
+    border-bottom: 1px solid var(--border-color);
+}
+
+.popup-header h3 {
+    margin: 0;
+}
+
+#popup-text {
+    padding: 0 2rem 1.5rem 2rem; /* Add padding to text area */
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+#close-popup-btn {
+    margin: 0 2rem 2rem 2rem; /* Adjust margin to fit padding */
+    width: calc(100% - 4rem);
+}
+
+#print-response-btn {
+    background: none;
+    border: 1px solid var(--text-muted-color);
+    color: var(--text-muted-color);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+
+#print-response-btn:hover {
+    background-color: var(--text-muted-color);
+    color: var(--surface-color);
+}
+
+#print-response-btn svg {
+    width: 18px;
+    height: 18px;
+}

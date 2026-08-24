@@ -1,0 +1,364 @@
+/* === FONT & GLOBAL STYLES (WITH CSS VARIABLES) === */
+:root {
+    --primary-color: #2e7d32;
+    --secondary-color: #4CAF50;
+    --background-color: #f4f4f9;
+    --surface-color: #ffffff;
+    --text-color: #333333;
+    --text-muted-color: #555555;
+    --border-color: #ddd;
+    --hero-text-color: #ffffff;
+    --footer-bg-color: #333333;
+    --footer-text-color: #ffffff;
+    --animation-speed: 0.5s;
+    --transition-speed: 0.3s;
+}
+
+body.dark-mode {
+    --background-color: #121212;
+    --surface-color: #1e1e1e;
+    --text-color: #e0e0e0;
+    --text-muted-color: #a0a0a0;
+    --border-color: #444;
+    --hero-text-color: #ffffff;
+    --footer-bg-color: #1e1e1e;
+    --footer-text-color: #e0e0e0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+.section-title { text-align: center; margin-bottom: 3rem; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 2.5em; color: var(--text-color); }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === HEADER, NAVIGATION, FORMS, CARDS, FOOTER (All Unchanged) === */
+/* ... (all your existing styles for .main-header, .hero, .prediction-form, etc. go here) ... */
+.main-header {
+    background-color: color-mix(in srgb, var(--surface-color) 95%, transparent);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+.main-header .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { text-decoration: none; font-family: 'Poppins', sans-serif; font-size: 1.8em; color: var(--primary-color); font-weight: 700; }
+.nav-right-cluster { display: flex; align-items: center; gap: 2rem; }
+.nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 2.5rem; }
+.nav-links a { text-decoration: none; color: var(--text-muted-color); font-weight: 500; font-size: 1.05em; transition: color 0.3s ease; }
+.nav-links a:hover { color: var(--secondary-color); }
+#dark-mode-toggle { background: none; border: none; cursor: pointer; padding: 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted-color); transition: color 0.3s ease, background-color 0.3s ease; }
+#dark-mode-toggle:hover { color: var(--text-color); background-color: color-mix(in srgb, var(--text-color) 10%, transparent); }
+.moon-icon { display: none; }
+.sun-icon { display: block; }
+body.dark-mode .moon-icon { display: block; }
+body.dark-mode .sun-icon { display: none; }
+.hero { background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&q=80&w=1974'); background-size: cover; background-position: center; color: var(--hero-text-color); text-align: center; padding: 5rem 1rem; }
+.hero h2 { font-size: 2.5em; margin-bottom: 0.5rem; }
+.prediction-form { padding: 2.5rem; margin: 3rem auto; max-width: 800px; background-color: var(--surface-color); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: background-color var(--transition-speed) ease; }
+.prediction-form h2 { text-align: center; margin-top: 0; margin-bottom: 2rem; color: var(--text-color); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.form-group label { margin-bottom: 0.5rem; font-weight: bold; color: var(--text-muted-color); }
+.form-group input { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box; font-size: 1em; background-color: var(--background-color); color: var(--text-color); transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+button[type="submit"] { display: block; width: 100%; background-color: var(--secondary-color); color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: background-color 0.3s ease; }
+button[type="submit"]:hover { background-color: var(--primary-color); }
+#prediction-result { margin-top: 2rem; padding: 1.5rem; background-color: color-mix(in srgb, var(--primary-color) 10%, transparent); border-left: 5px solid var(--secondary-color); border-radius: 4px; }
+.surveys-section { padding: 4rem 0; background: var(--surface-color); transition: background-color var(--transition-speed) ease; }
+.survey-item { display: flex; align-items: center; gap: 3rem; margin-bottom: 4rem; animation: fadeInUp var(--animation-speed) ease-out forwards; opacity: 0; }
+.survey-item.survey-item-reverse { flex-direction: row-reverse; }
+.survey-image-container { flex: 0 0 45%; }
+.survey-image { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+.survey-content h3 { font-family: 'Poppins', sans-serif; font-size: 1.8em; color: var(--primary-color); margin-top: 0; }
+.survey-content ul { list-style: none; padding-left: 0; }
+.survey-content li { padding-left: 1.5em; position: relative; margin-bottom: 0.8rem; }
+.survey-content li::before { content: '■'; position: absolute; left: 0; color: var(--secondary-color); font-size: 0.8em; top: 0.2em; }
+.about-us-section { padding: 4rem 0; text-align: center; }
+.about-image { width: 100%; max-width: 600px; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); animation: fadeInUp var(--animation-speed) ease-out forwards; opacity: 0; }
+.about-para { max-width: 800px; margin: 0 auto 4rem auto; font-size: 1.1em; animation: fadeInUp var(--animation-speed) ease-out 0.2s forwards; opacity: 0; }
+.data-collection-section { position: relative; padding: 3rem; border-radius: 10px; margin-top: 2rem; color: #fff; text-align: left; overflow: hidden; }
+.data-collection-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(46, 125, 50, 0.9), rgba(46, 125, 50, 0.95)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070'); background-size: cover; z-index: 1; }
+.data-content { position: relative; z-index: 2; }
+.data-content h3 { font-family: 'Poppins', sans-serif; font-size: 1.8em; margin-top: 0; }
+.stats-visual { margin-top: 2rem; }
+.stat-item { display: flex; align-items: center; margin-bottom: 1rem; }
+.stat-label { width: 140px; font-weight: bold; }
+.stat-bar-container { flex: 1; background-color: rgba(0,0,0,0.2); border-radius: 10px; height: 20px; }
+.stat-bar { display: block; height: 100%; background-color: #fff; border-radius: 10px; }
+.nutrition-section { padding: 4rem 0; background: var(--surface-color); transition: background-color var(--transition-speed) ease; }
+.card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.card { background-color: var(--background-color); padding: 2rem; text-align: center; border-radius: 8px; border-top: 4px solid var(--secondary-color); transition: transform 0.3s ease, box-shadow 0.3s ease, background-color var(--transition-speed) ease; opacity: 0; animation: fadeInUp var(--animation-speed) ease-out forwards; }
+.card:hover { transform: translateY(-10px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+.card h3 { font-family: 'Poppins', sans-serif; margin-top: 0; color: var(--primary-color); }
+.card:nth-child(2) { animation-delay: 0.1s; } .card:nth-child(3) { animation-delay: 0.2s; }
+.card:nth-child(4) { animation-delay: 0.3s; } .card:nth-child(5) { animation-delay: 0.4s; } .card:nth-child(6) { animation-delay: 0.5s; }
+.main-footer-section { background-color: var(--footer-bg-color); color: var(--footer-text-color); padding: 3rem 0; margin-top: 3rem; transition: background-color var(--transition-speed) ease; position: relative; z-index: 2; }
+.footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-title { font-family: 'Poppins', sans-serif; font-size: 1.8em; color: var(--footer-text-color); margin: 0 0 0.25rem 0; }
+.footer-contact-info { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 0.85rem 0; padding: 0; font-family: 'Roboto', sans-serif; font-size: 0.95rem; line-height: 1.5; }
+.footer-contact-label { color: #aaa; font-family: 'Roboto', sans-serif; font-size: 0.95rem; font-weight: 400; margin: 0; padding: 0; line-height: 1.5; }
+.footer-email { color: #e0e0e0; font-family: 'Roboto', sans-serif; font-size: 0.95rem; font-weight: 400; margin: 0; padding: 0; line-height: 1.5; text-decoration: none; transition: color 0.3s ease; }
+.footer-email:hover { color: #fff; text-decoration: underline; }
+.social-icons { display: flex; gap: 0.85rem; flex-wrap: wrap; align-items: center; }
+.social-icons a { color: #aaa; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; }
+.social-icons a:hover { color: #fff; transform: translateY(-2px) scale(1.12); }
+.back-to-top { color: var(--footer-text-color); text-decoration: none; font-weight: bold; padding: 0.8rem 1.5rem; border: 1px solid var(--footer-text-color); border-radius: 5px; transition: all 0.3s ease; }
+.back-to-top:hover { background-color: var(--footer-text-color); color: var(--footer-bg-color); }
+@media (max-width: 768px) {
+    html { scroll-padding-top: 120px; } .section-title { font-size: 2em; }
+    .main-header .container { flex-direction: column; gap: 1rem; }
+    .nav-right-cluster { width: 100%; justify-content: space-between;}
+    .form-grid { grid-template-columns: 1fr; }
+    .survey-item, .survey-item.survey-item-reverse { flex-direction: column; }
+    .footer-content { flex-direction: column; text-align: center; gap: 2rem; }
+}
+
+
+/* ================================================= */
+/* === ANIMATION & VISIBILITY UTILITY CLASSES ====== */
+/* ================================================= */
+/* These generic classes are used by JavaScript to control popups and animated elements. */
+
+/* The .hidden class COMPLETELY removes the element from the page. This PREVENTS GHOSTING. */
+.hidden {
+    display: none !important;
+}
+
+/* Base state for all animated pop-ups and the prediction result area. */
+.animated-popup, #prediction-result {
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; /* Extra safety: blocks clicks when invisible */
+    transform: translateY(15px);
+}
+
+/* Base state for the overlay fade. */
+#modal-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* The '.visible' class is added by JavaScript to trigger the fade-in animation. */
+.animated-popup.visible,
+#prediction-result.visible,
+#modal-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* The overlay doesn't need the Y-transform, so we reset it here */
+#modal-overlay.visible {
+    transform: none;
+}
+
+/* This class is added to the <body> by JavaScript to stop the page from scrolling behind a modal. */
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* ================================================= */
+/* ========= ADDED STYLES FOR LOGO IMAGES ========== */
+/* ================================================= */
+
+/* --- Navbar Logo Styling --- */
+.logo {
+    display: flex;
+    align-items: center; /* This vertically aligns the image and text */
+    gap: 10px; /* This creates space between the image and text */
+    font-weight: 700;
+}
+
+.logo-img {
+    height: 40px; /* Adjust the height of the navbar logo */
+}
+
+.logo span {
+    font-size: 1.8em; /* Keeps the text size the same as before */
+}
+
+
+/* ================================================= */
+/* ========= FINAL CORRECTED FOOTER STYLES ========= */
+/* ================================================= */
+
+/* --- Navbar Logo Styling (Remains the same) --- */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+}
+.logo-img {
+    height: 40px;
+}
+.logo span {
+    font-size: 1.8em;
+}
+
+
+/* --- New Footer Styling --- */
+.footer-left {
+    display: flex; /* Aligns the logo and the info-stack side-by-side */
+    align-items: center; /* Vertically centers the logo with the info stack */
+    gap: 25px; /* Creates space between the logo and the text block */
+}
+
+.footer-logo-img {
+    height: 70px; /* Makes the logo bigger as requested */
+    flex-shrink: 0; /* Prevents the logo from shrinking on small screens */
+}
+
+.footer-info-stack {
+    display: flex;
+    flex-direction: column; /* Stacks the items vertically */
+    align-items: flex-start; /* Aligns all text items to the left */
+}
+
+
+/* ================================================= */
+/* ========= SVG LOGO DARK MODE INVERSION ========== */
+/* ================================================= */
+
+/* This rule targets the logos ONLY when dark mode is active */
+body.dark-mode .logo-img,
+body.dark-mode .footer-logo-img {
+    filter: invert(1);
+}
+
+
+
+/* ================================================= */
+/* ========= FORM VALIDATION STYLES ================ */
+/* ================================================= */
+
+/* Style for the error message text below the input */
+.error-message {
+    color: #e53935; /* A strong but not jarring red color */
+    font-size: 0.85em;
+    height: 1em; /* Reserve space to prevent layout shift */
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* Style for the input field when it has an error */
+input.input-error {
+    border-color: #e53935 !important;
+    box-shadow: 0 0 0 1px #e53935;
+}
+
+
+
+
+/* ================================================= */
+/* === LOCATION BUTTON & ENHANCED RESULT STYLES ==== */
+/* ================================================= */
+
+/* --- Location Button --- */
+.location-btn {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--primary-color);
+    background-color: transparent;
+    border: 2px solid var(--secondary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.location-btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.location-status-message {
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 8px;
+    height: 1.2em;
+    color: var(--text-muted-color);
+}
+
+/* --- Enhanced Prediction Result Card --- */
+.prediction-result-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.prediction-result-container h3 {
+    margin-bottom: 1rem;
+}
+
+.crop-card {
+    background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);
+    border-left: 5px solid var(--secondary-color);
+    border-radius: 4px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.crop-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+}
+
+.crop-card p {
+    font-size: 1.1em;
+    color: var(--text-muted-color);
+    margin-bottom: 1.5rem;
+}
+
+.crop-card .details-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.crop-card .details-btn:hover {
+    background-color: var(--primary-color);
+}
+
+.crop-card .placeholder {
+    font-size: 1.5em;
+    color: var(--text-muted-color);
+    padding: 2rem 0;
+}
+
+/* Hide/Show utility (JS uses this) */
+.hidden {
+    display: none !important;
+}

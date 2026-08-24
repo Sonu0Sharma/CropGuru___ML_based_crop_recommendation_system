@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropGuru - AI Driven Crop Recommendation</title>
+    
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/cropguru_logo5.svg') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="container">
+            <!-- === NAVBAR LOGO CHANGE HERE === -->
+            <a href="#" class="logo">
+                <img src="{{ url_for('static', filename='images/cropguru_logo5.svg') }}" alt="CropGuru Logo" class="logo-img">
+                <span style="font-size: 2rem;">CropGuru</span>
+            </a>
+            <div class="nav-right-cluster">
+                <ul class="nav-links">
+                    <li><a href="#surveys">Surveys</a></li>
+                    <li><a href="#about-us">About Us</a></li>
+                    <li><a href="#contact-us">Contact Us</a></li>
+                </ul>
+                <button id="dark-mode-toggle" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.64 5.64c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.64 5.64zm12.72 12.72c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41l-1.06-1.06zM5.64 18.36l-1.06-1.06c-.39-.39-.39-1.02 0-1.41s1.02-.39 1.41 0l1.06 1.06c.39.39.39 1.02 0 1.41s-1.02.39-1.41 0zm12.72-12.72l-1.06-1.06c-.39-.39-.39-1.02 0-1.41s1.02-.39 1.41 0l1.06 1.06c.39.39.39 1.02 0 1.41s-1.02.39-1.41 0z"/></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M12.87 2.09c-.38-.03-.76 0-1.13.09C7.4 2.8 4.22 6.33 4.02 10.79c-.22 4.93 3.53 9.22 8.46 9.22.2 0 .4-.01.59-.02 4.13-.23 7.39-3.72 7.39-7.88 0-3.69-2.55-6.84-6-7.87zm.79 16.02c-3.2-.01-5.78-2.6-5.78-5.79 0-2.31 1.34-4.33 3.29-5.26.1-.05.22-.04.31.02.1.06.16.16.16.28v10.4c0 .12-.06.23-.16.28-.2.1-.42.17-.62.17z"/></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h2>Get an Instant Crop Recommendation</h2>
+                <p>Enter your soil and weather data to find the perfect crop for your land.</p>
+            </div>
+        </section>
+
+                <section class="prediction-form">
+            <h2>Recommendation Engine</h2>
+            <form id="recommendation-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="n">Nitrogen (N) (kg/ha)</label>
+                        <input type="number" id="n" name="n" required placeholder="e.g., 90">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="p">Phosphorus (P) (kg/ha)</label>
+                        <input type="number" id="p" name="p" required placeholder="e.g., 42">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="k">Potassium (K) (kg/ha)</label>
+                        <input type="number" id="k" name="k" required placeholder="e.g., 43">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ph">Soil pH Level</label>
+                        <input type="number" id="ph" name="ph" step="0.1" required placeholder="e.g., 6.5">
+                        <div class="error-message"></div>
+                    </div>
+                    
+                    <!-- === WEATHER FIELDS WITH LOCATION BUTTON === -->
+                    <div class="form-group">
+                        <label for="temperature">Temperature (°C)</label>
+                        <input type="number" id="temperature" name="temperature" step="0.1" required placeholder="e.g., 20.8">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="humidity">Relative Humidity (%)</label>
+                        <input type="number" id="humidity" name="humidity" step="0.1" required placeholder="e.g., 82.0">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="rainfall">Rainfall (mm)</label>
+                        <input type="number" id="rainfall" name="rainfall" step="0.1" required placeholder="e.g., 202.9">
+                        <div class="error-message"></div>
+                    </div>
+
+                    <!-- === NEW: LOCATION FETCH BUTTON === -->
+                    <div class="form-group full-width">
+                        <button type="button" id="fetch-location-btn" class="location-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18px" height="18px"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+                            Use My Location to get Weather Data
+                        </button>
+                        <div id="location-status" class="location-status-message"></div>
+                    </div>
+                </div>
+                <button type="submit">Get Recommendation</button>
+            </form>
+
+            <!-- === NEW: ENHANCED PREDICTION RESULT AREA === -->
+            <div id="prediction-result" class="prediction-result-container hidden">
+                <h3>Your Recommended Crop:</h3>
+                <div id="crop-result-card" class="crop-card">
+                    <div id="crop-name-placeholder" class="placeholder">Analyzing...</div>
+                    <h2 id="crop-name" class="hidden"></h2>
+                    <p id="suggestion-text"></p>
+                    <button id="view-crop-details-btn" class="details-btn hidden">View Cultivation Guide</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- === THIS IS THE RESTORED CONTENT === -->
+        <section id="surveys" class="surveys-section">
+            <div class="container">
+                <h2 class="section-title">The Challenges We Face</h2>
+                <div class="survey-item">
+                    <div class="survey-image-container"><img src="https://joint-research-centre.ec.europa.eu/sites/default/files/styles/oe_theme_medium_no_crop/public/2024-04/poco_bw_AdobeStock_531073398.jpeg?itok=K6fYNl6B" alt="Global Food Supply Chain" class="survey-image"></div>
+                    <div class="survey-content">
+                        <h3>Global Food Scarcity</h3>
+                        <ul>
+                            <li>The UN projects the world will need to produce 60% more food by 2050 to feed a population of 9.7 billion.</li>
+                            <li>Extreme weather events, intensified by climate change, are making crop yields more unpredictable than ever.</li>
+                            <li>Up to one-third of all food produced globally is lost or wasted before it ever reaches the consumer.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="survey-item survey-item-reverse">
+                    <div class="survey-image-container"><img src="https://mediaindia.eu/wp-content/uploads/2020/04/farmers-1.jpg" alt="Farmer on a Tractor" class="survey-image"></div>
+                    <div class="survey-content">
+                        <h3>Hardships in Farming</h3>
+                        <ul>
+                            <li>Over 80% of farmers in India are smallholders, making them highly vulnerable to crop failure and debt.</li>
+                            <li>Unpredictable monsoon patterns directly impact the livelihoods of millions dependent on rain-fed agriculture.</li>
+                            <li>Lack of access to modern data and technology creates a significant barrier to improving productivity and income.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-us" class="about-us-section">
+            <div class="container">
+                <h2 class="section-title">Our Mission for a Greener Future</h2>
+                <img src="https://students.1fbusa.com/hubfs/25%20Ways%20to%20Volunteer%20in%20Your%20Community.jpg" alt="Hopeful Farmer in a Thriving Field" class="about-image">
+                <p class="about-para">We believe that data is the most powerful tool in modern agriculture. Our noble goal is to bridge the technology gap for farmers everywhere, starting in India. By providing free, accessible, and accurate crop recommendations, we empower farmers to make informed decisions, increase their yield, conserve resources, and secure their financial future. CropGuru is more than an app; it's a step towards a sustainable and prosperous agricultural ecosystem for all.</p>
+                <div class="data-collection-section">
+                    <div class="data-content">
+                        <h3>Powered by Pan-India Data</h3>
+                        <p>Our model's accuracy comes from a comprehensive dataset collected from various agricultural institutes and soil testing centers across India. This diverse data ensures our recommendations are relevant to a wide range of local conditions.</p>
+                        <div class="stats-visual">
+                            <div class="stat-item"><span class="stat-label">Northern Plains</span><div class="stat-bar-container"><span class="stat-bar" style="width: 80%;"></span></div></div>
+                            <div class="stat-item"><span class="stat-label">Deccan Plateau</span><div class="stat-bar-container"><span class="stat-bar" style="width: 90%;"></span></div></div>
+                            <div class="stat-item"><span class="stat-label">Coastal Regions</span><div class="stat-bar-container"><span class="stat-bar" style="width: 75%;"></span></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="nutrition-section">
+            <div class="container">
+                <h2 class="section-title">Understanding Key Growth Factors</h2>
+                <div class="card-container">
+                    <div class="card"><h3>Nitrogen (N)</h3><p>Essential for leaf and stem growth (vegetative growth). It is a core component of chlorophyll, giving plants their green color.</p></div>
+                    <div class="card"><h3>Phosphorus (P)</h3><p>Crucial for strong root development, seed germination, and the transfer of energy within the plant. Aids in flowering and fruiting.</p></div>
+                    <div class="card"><h3>Potassium (K)</h3><p>Improves overall plant vigor, disease resistance, and water regulation. Essential for producing high-quality fruit and grain.</p></div>
+                    <div class="card"><h3>Soil pH</h3><p>Affects the availability of all other nutrients. Most crops thrive in a neutral range (6.0 to 7.5) where nutrients are most accessible.</p></div>
+                    <div class="card"><h3>Temperature</h3><p>Dictates the rate of plant growth and metabolic processes. Each crop has an optimal temperature range for germination and growth.</p></div>
+                    <div class="card"><h3>Soil Type</h3><p>Determines water retention and nutrient-holding capacity. Different crops are adapted to different soil structures, from sandy to clay.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- === END OF RESTORED CONTENT === -->
+    </main>
+
+        <footer id="contact-us" class="main-footer-section">
+        <div class="container footer-content">
+            
+            <div class="footer-left">
+                <!-- Item 1: The Logo Image -->
+                <img src="{{ url_for('static', filename='images/cropguru_logo5.svg') }}" alt="CropGuru Logo" class="footer-logo-img">
+                
+                <!-- Item 2: A new container for the text stack -->
+                <div class="footer-info-stack">
+                    <h3 class="footer-title">CropGuru</h3>
+                    <div class="footer-contact-info">
+                        <span class="footer-contact-label">Contact Developer:</span>
+                        <a href="mailto:sonusharma15772@gmail.com" class="footer-email">sonusharma15772@gmail.com</a>
+                    </div>
+                    <div class="social-icons">
+                        <a href="https://github.com/Sonu0Sharma" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                        <a href="https://www.linkedin.com/in/sonu-sharma1000/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="https://www.kaggle.com/work/collections/19016604" target="_blank" rel="noopener noreferrer" aria-label="Kaggle" title="Kaggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.539c-.234 0-.351-.117-.351-.352V.352c0-.234.117-.352.351-.352h2.397c.234 0 .351.118.351.352v14.479l6.326-6.26c.14-.14.293-.211.457-.211h3.35c.164 0 .258.058.281.176.023.093-.012.187-.105.281l-6.853 6.647 7.378 8.163c.094.094.129.188.105.282z"/></svg></a>
+                        <a href="https://medium.com/@sonusharmaofficial01mail" target="_blank" rel="noopener noreferrer" aria-label="Medium" title="Medium"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg></a>
+                        <a href="https://x.com/Sonu001Sharma" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" title="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="https://x.com/Sonu001Sharma" target="_blank" rel="noopener noreferrer" aria-label="Twitter (Classic)" title="Twitter (Classic)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.216 3.793 4.649-.69.188-1.423.237-2.16.084.609 1.882 2.373 3.256 4.478 3.295-1.616 1.267-3.636 2.02-5.833 2.02-.379 0-.75-.022-1.114-.065 2.089 1.347 4.58 2.123 7.24 2.123 8.693 0 13.456-7.22 13.456-13.456 0-.204-.005-.408-.014-.613.924-.668 1.719-1.498 2.353-2.446z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-right">
+                <a href="#" class="back-to-top">Back to Top &uarr;</a>
+            </div>
+        </div>
+    </footer>
+
+
+    {% include 'chatbot.html' %}
+
+    <!-- Load the JS files at the end. Order is important! -->
+    <script src="{{ url_for('static', filename='js/chatbot_content.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
