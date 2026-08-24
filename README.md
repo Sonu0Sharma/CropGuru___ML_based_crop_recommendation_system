@@ -156,7 +156,7 @@ cropguru/
 │   │   ├── train.py                           # Model training pipeline
 │   │   ├── predict.py                         # Prediction handler
 │   │   └── crop_recommendation_model.pkl      # Production Random Forest model
-│   └── README.ipynb                           # Kaggle documentation notebook
+│   └── CropGuru_README.ipynb                  # Kaggle documentation notebook
 ├── tests/
 │   ├── browser_test.js                        # Automated browser console test suite
 │   ├── test_backend.py                        # Python unittest suite for backend & ML
