@@ -121,7 +121,7 @@ The predictive core is trained on **2,200 balanced observations across 22 distin
 Benchmarked across 7 classification algorithms under **5-Fold Stratified Cross-Validation** on the [Kaggle Crop Recommendation Dataset](https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset):
 
 | Algorithm | 5-Fold CV Mean | Test Accuracy | Precision | Recall | F1-Score | Inference Latency |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Random Forest Classifier (100 Trees)** 🏆 | **99.38% (±0.45%)** | **99.55%** | **99.57%** | **99.55%** | **99.55%** | **~8.5 ms** |
 | **Gaussian Naive Bayes** | 99.38% (±0.40%) | 99.55% | 99.58% | 99.55% | 99.55% | ~2.1 ms |
 | **Gradient Boosting Classifier** | 98.75% (±0.72%) | 99.32% | 99.36% | 99.32% | 99.32% | ~3.8 ms |
