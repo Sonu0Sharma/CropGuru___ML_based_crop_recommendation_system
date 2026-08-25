@@ -17,7 +17,13 @@
 * 👉 **Live Web Application**: https://sonu0sharma.github.io/CropGuru___ML_based_crop_recommendation_system/
 * 👉 **GitHub Repository**: https://github.com/Sonu0Sharma/CropGuru___ML_based_crop_recommendation_system
 * 👉 **Kaggle Collection**: https://www.kaggle.com/work/collections/19016604
-* 👉 **Medium Technical Deep-Dive**: https://medium.com/@sonusharmaofficial01mail
+* 👉 **Medium Technical Deep-Dive**: https://medium.com/@sonusharmaofficial01mail/building-cropguru-how-i-engineered-a-99-55-e89929e3ace3?sharedUserId=sonusharmaofficial01mail
+
+---
+
+<p align="center">
+  <img src="documentation_assets/website_snippet-1.png" alt="CropGuru Web Interface Preview" width="100%">
+</p>
 
 ---
 
@@ -45,6 +51,10 @@ Over **80% of farmers in India operate on smallholder lands** under 2 hectares. 
 
 ## 💡 Ideation & Architectural Thinking
 
+<p align="center">
+  <img src="documentation_assets/architecture_diagram.png" alt="CropGuru System Architecture Diagram" width="100%">
+</p>
+
 When designing **CropGuru**, several key engineering decisions were prioritized:
 
 1. **Why Random Forest over Deep Learning?**  
@@ -55,6 +65,10 @@ When designing **CropGuru**, several key engineering decisions were prioritized:
 
 3. **Solving Free Cloud "Cold Starts" (Hybrid Cloud Design):**  
    Free-tier hosting providers (like Render) spin down servers after 15 minutes of inactivity, resulting in a 40–50 second delay on the next request. By hosting the frontend statically on **GitHub Pages CDN** and dispatching an asynchronous background `/health` pre-warming ping on page load, the Render backend wakes up while the farmer is typing soil details, guaranteeing instantaneous predictions when clicking **Recommend Crop**.
+
+<p align="center">
+  <img src="documentation_assets/website_snippet-3.png" alt="CropGuru Live UI and Guide" width="100%">
+</p>
 
 ---
 
@@ -93,10 +107,21 @@ When designing **CropGuru**, several key engineering decisions were prioritized:
 
 ## 📊 Machine Learning Engine & Benchmarks
 
+> *If you want to dive deep into our machine learning methodology, exploratory data analysis, and multi-model benchmarking, refer to the **Kaggle Notebook 👉 [Link](https://www.kaggle.com/work/collections/19016604)**.*
+
+### 🔍 Exploratory Data Analysis & Agro-Climatic Dynamics
+The predictive core is trained on **2,200 balanced observations across 22 distinct Indian agricultural crop classes** (100 samples per category) evaluating 7 continuous chemical and meteorological indicators: Nitrogen ($N$), Phosphorus ($P$), Potassium ($K$), Soil pH, Ambient Temperature, Relative Humidity, and Precipitation. EDA reveals distinct multimodal environmental niches—crops like Rice demand high moisture ($>200\text{ mm}$) and high humidity ($>80\%$), while fruits (Apple, Grapes) exhibit extreme Potassium/Phosphorus requirements that cleanly separate them from pulses and cereals.
+
+<p align="center">
+  <img src="documentation_assets/eda-1.png" alt="Exploratory Data Analysis - Feature Correlations" width="49%">
+  <img src="documentation_assets/eda-2.png" alt="Exploratory Data Analysis - Soil and Climate Distributions" width="49%">
+</p>
+
+### 🏆 7-Algorithm Benchmark Leaderboard
 Benchmarked across 7 classification algorithms under **5-Fold Stratified Cross-Validation** on the [Kaggle Crop Recommendation Dataset](https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset):
 
 | Algorithm | 5-Fold CV Mean | Test Accuracy | Precision | Recall | F1-Score | Inference Latency |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Random Forest Classifier (100 Trees)** 🏆 | **99.38% (±0.45%)** | **99.55%** | **99.57%** | **99.55%** | **99.55%** | **~8.5 ms** |
 | **Gaussian Naive Bayes** | 99.38% (±0.40%) | 99.55% | 99.58% | 99.55% | 99.55% | ~2.1 ms |
 | **Gradient Boosting Classifier** | 98.75% (±0.72%) | 99.32% | 99.36% | 99.32% | 99.32% | ~3.8 ms |
@@ -104,6 +129,10 @@ Benchmarked across 7 classification algorithms under **5-Fold Stratified Cross-V
 | **Support Vector Machine (SVC)** | 97.90% (±0.51%) | 98.18% | 98.29% | 98.18% | 98.17% | ~12.3 ms |
 | **Logistic Regression (Multinomial)** | 96.76% (±0.85%) | 97.50% | 97.58% | 97.50% | 97.49% | ~0.8 ms |
 | **K-Nearest Neighbors (KNN)** | 97.50% (±0.68%) | 96.59% | 96.71% | 96.59% | 96.55% | ~9.2 ms |
+
+<p align="center">
+  <img src="documentation_assets/model_benchmark_chart.png" alt="CropGuru Model Benchmark Comparison Chart" width="100%">
+</p>
 
 ---
 
