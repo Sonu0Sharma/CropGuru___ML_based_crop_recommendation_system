@@ -17,3 +17,7 @@ __pycache__/
 .vscode/
 .idea/
 *.swp
+
+# Local assets
+medium_assets/
+
